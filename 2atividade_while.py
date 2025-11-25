@@ -24,8 +24,10 @@ while numero_secreto != numero_escolhido and chances > 0:
         
     chances -= 1
 
-    if numero_secreto == numero_escolhido:
-        print (f"Acertou! O numero era {numero_secreto}. E ainda sobraram {chances} chances.")
+    if numero_secreto == numero_escolhido and chances == 0:
+        print (f"Acertou! O numero era {numero_secreto}. E não sobraram chances.")
+    elif numero_secreto == numero_escolhido:
+         print (f"Acertou! O numero era {numero_secreto}. E ainda sobraram {chances} chances.")
     elif numero_secreto < numero_escolhido:
         print (f"Errou, o numero secreto é menor do que esse. Voce possui {chances} chances.")
     else:
