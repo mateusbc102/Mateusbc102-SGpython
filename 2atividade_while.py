@@ -1,8 +1,16 @@
 import random
 
 print ("Vamos Jogar?")
+
 chances = int(input("Escolha quantas chances deseja ter para acertar o número secreto: "))
-maximo = int(input("Escolha o intervalo em que o número secreto deve estar: "))
+while chances <= 0:
+    print ("Numero escolhido menor que o mínimo.")
+    chances = int(input("Escolha quantas chances deseja ter para acertar o número secreto: "))
+
+maximo = int(input("Escolha o intervalo máximo em que o número secreto deve estar: "))
+while maximo <= 1:
+    print ("Numero escolhido menor que o mínimo para o intervalo.")
+    maximo = int(input("Escolha o intervalo máximo em que o número secreto deve estar: "))
 
 numero_secreto = random.randint(1,maximo)
 numero_escolhido = 0
