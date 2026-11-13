@@ -72,24 +72,24 @@ while Menu == True:
                     encontrou = True
             if encontrou == False:
                 print(f"{fugitivo} não faz parte da lista de foragidos.")
-    elif pergunta_menu.lower() == "estatisticas" or pergunta_menu.lower() == "estatística":
+    elif pergunta_menu.lower() == "estatisticas" or pergunta_menu.lower() == "estatísticas":
         if len(perseguição_nome) == 0:
             print("Sem fugitivos registrados, retorne ao Menu principal")
         else:
-            distancia_total = 0
-            nome_perseguicao_longa = ""
-            perseguicao_longa = 0
-            nome_fugitivo_rapido = ""
-            fugitivo_rapido = 0
+            distância_total = 0
+            nome_perseguição_longa = ""
+            perseguição_longa = 0
+            nome_fugitivo_rápido = ""
+            fugitivo_rápido = 0
             quantidade_alta_velocidade = 0
             for indice in range(len(perseguição_nome)):
-                distancia_total += perseguição_distância[indice]
-                if perseguicao_longa < perseguição_distância[indice]:
+                distância_total += perseguição_distância[indice]
+                if perseguição_longa < perseguição_distância[indice]:
                     perseguição_longa = perseguição_distância[indice]
-                    nome_perseguicao_longa = perseguição_nome[indice]
-                if fugitivo_rapido < perseguição_velocidade_média[indice]:
-                    fugitivo_rapido = perseguição_velocidade_média[indice]
-                    nome_fugitivo_rapido = perseguição_nome[indice]
-            print(f"Distância total: {distancia_total} km, Distância média: {distancia_total/len(perseguição_nome)} km\nNome do Fugitivo com Perseguição mais longa: {nome_perseguicao_longa}, Nome do fugitivo com Perseguição mais rápida: {nome_fugitivo_rapido}.")
+                    nome_perseguição_longa = perseguição_nome[indice]
+                if fugitivo_rápido < perseguição_velocidade_média[indice]:
+                    fugitivo_rápido = perseguição_velocidade_média[indice]
+                    nome_fugitivo_rápido = perseguição_nome[indice]
+            print(f"Distância total: {distância_total} km, Distância média: {distância_total/len(perseguição_nome)} km\nNome do Fugitivo com Perseguição mais longa: {nome_perseguição_longa}, Nome do fugitivo com Perseguição mais rápida: {nome_fugitivo_rápido}.")
     else:
         print("\n    Inválido")
