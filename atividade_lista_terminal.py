@@ -3,10 +3,10 @@ perseguição_nome = []
 perseguição_distância = []
 perseguição_tempo = []
 perseguição_velocidade_média = []
-quantidade_perseguições = 0
 print("Bem vindo a Lista Terminal... ")
 while Menu == True:
-    pergunta_menu = input("""Escolha uma das opções abaixo para prosseguir na missão:
+    pergunta_menu = input("""
+    Escolha uma das opções abaixo para prosseguir na missão:
     Registrar perseguição 
     Listar perseguições 
     Buscar fugitivo 
@@ -20,7 +20,7 @@ while Menu == True:
     elif pergunta_menu.lower() == "registrar perseguição" or pergunta_menu.lower() == "registrar perseguicao":
         quantidade_perseguições = int(input("Quantas perseguições deseja registrar? "))
         for indice in range(quantidade_perseguições):
-            escolha_nome = input(f"Qual o nome do {indice+1} fugitivo? ")
+            escolha_nome = input(f"\nQual o nome do {indice+1} fugitivo? ")
             perseguição_nome.append(escolha_nome)
             escolha_distância = float(input(f"Qual a distãncia em quilômetros da perseguição {indice+1}? "))
             perseguição_distância.append(escolha_distância)
@@ -28,31 +28,68 @@ while Menu == True:
             perseguição_tempo.append(escolha_tempo)
             media = round(escolha_distância/(escolha_tempo/60), 2)
             perseguição_velocidade_média.append(media)
-            print (f"A velocidade média é {media} km/h")
+            print (f"\nA velocidade média é {media} km/h")
             if media >= 60:
-                print ("Perseguição em alta velocidade, precisamos de um veículo!")
+                print ("\nPerseguição em alta velocidade, precisamos de um veículo!")
             elif media >= 20:
-                print ("Perseguição urbana, precisamos de agilidade, mas cuidado!")
+                print ("\nPerseguição urbana, precisamos de agilidade, mas cuidado!")
             else:
-                print("Perseguição lenta, precisamos ser discretos, vamos a pé!")
-        print("Perseguições registradas, retorne ao menu para a próxima etapa.")
+                print("\nPerseguição lenta, precisamos ser discretos, vamos a pé!")
+        print("\nPerseguições registradas, retorne ao menu para a próxima etapa.")
     elif pergunta_menu.lower() == "listar perseguições" or pergunta_menu.lower() == "listar perseguicoes":
-        if quantidade_perseguições <= 0:
+        if len(perseguição_nome) == 0:
             print("Sem perseguições registradas, retorne ao Menu principal")
         else:
-            for nome in (perseguição_nome, perseguição_distância, perseguição_tempo):
-                print(nome)
+            for indice in range(len(perseguição_nome)):
+                print(f"Nome: {perseguição_nome[indice]}, Velocidade: {perseguição_velocidade_média[indice]} Km/h, Tempo: {perseguição_tempo[indice]} min, Distância: {perseguição_distância[indice]} Km")               
             print("Retorne ao Menu para prosseguir")
     elif pergunta_menu.lower() == "buscar fugitivo":
-        if quantidade_perseguições <= 0:
+        if len(perseguição_nome) == 0:
             print("Sem fugitivos registrados, retorne ao Menu principal")
         else:
             fugitivo = input("Escreva o nome do fugitivo: ")
-            for busca in perseguição_nome:
-                if busca == fugitivo:
+            encontrou = False
+            for indice in range(len(perseguição_nome)):
+                if perseguição_nome[indice] == fugitivo:
                     print(f"O fugitivo {fugitivo} está na lista de procurados, acione as autoridades imediatamente.")
-                    break
-            else:
+                    print(f"Nome: {perseguição_nome[indice]}, Velocidade: {perseguição_velocidade_média[indice]} Km/h, Tempo: {perseguição_tempo[indice]} min, Distância: {perseguição_distância[indice]} Km")
+                    encontrou = True
+            if encontrou == False:
                 print(f"{fugitivo} não faz parte da lista de foragidos.")
+    elif pergunta_menu.lower() == "remover fugitivo":
+        if len(perseguição_nome) == 0:
+            print("Sem fugitivos registrados, retorne ao Menu principal")
+        else:
+            fugitivo = input("Escreva o nome do fugitivo: ")
+            encontrou = False
+            for indice in range(len(perseguição_nome)):
+                if perseguição_nome[indice] == fugitivo:
+                    perseguição_nome[indice] = "removido"
+                    perseguição_distância[indice] = 0
+                    perseguição_tempo[indice] = 0
+                    perseguição_velocidade_média[indice] = 0
+                    print(f"O fugitivo {fugitivo} foi removido do registro.")
+                    encontrou = True
+            if encontrou == False:
+                print(f"{fugitivo} não faz parte da lista de foragidos.")
+    elif pergunta_menu.lower() == "estatisticas" or pergunta_menu.lower() == "estatística":
+        if len(perseguição_nome) == 0:
+            print("Sem fugitivos registrados, retorne ao Menu principal")
+        else:
+            distancia_total = 0
+            nome_perseguicao_longa = ""
+            perseguicao_longa = 0
+            nome_fugitivo_rapido = ""
+            fugitivo_rapido = 0
+            quantidade_alta_velocidade = 0
+            for indice in range(len(perseguição_nome)):
+                distancia_total += perseguição_distância[indice]
+                if perseguicao_longa < perseguição_distância[indice]:
+                    perseguição_longa = perseguição_distância[indice]
+                    nome_perseguicao_longa = perseguição_nome[indice]
+                if fugitivo_rapido < perseguição_velocidade_média[indice]:
+                    fugitivo_rapido = perseguição_velocidade_média[indice]
+                    nome_fugitivo_rapido = perseguição_nome[indice]
+            print(f"Distância total: {distancia_total} km, Distância média: {distancia_total/len(perseguição_nome)} km\nNome do Fugitivo com Perseguição mais longa: {nome_perseguicao_longa}, Nome do fugitivo com Perseguição mais rápida: {nome_fugitivo_rapido}.")
     else:
-        print("invalido")
+        print("\n    Inválido")
